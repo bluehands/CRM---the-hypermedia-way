@@ -1,5 +1,11 @@
-﻿using CRM.Application;
+﻿using Bluehands.Hypermedia.Relations;
+using CRM.Application;
+using CRM.Domain;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.HypermediaExtensions.Hypermedia;
+using WebApi.HypermediaExtensions.Hypermedia.Actions;
+using WebApi.HypermediaExtensions.Hypermedia.Links;
+using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
 namespace CRM.Server.Controllers;
@@ -16,12 +22,14 @@ public class CustomerQueriesController : Controller
         m_ProblemFactory = problemFactory;
         m_CustomerCommandHandler = customerCommandHandler;
     }
-    [HttpGet(Name ="CustomerQuery")]
+
+
+    [HttpGetHypermediaObject(typeof(CustomerQueryResultHto), Name = "CustomerQuery")]
     public async Task<IActionResult> Query(string? name, string? country)
     {
         var queryResult = await m_CustomerCommandHandler.QueryCustomers(new QueryParameter(name, country));
         return queryResult.Match<IActionResult>(
-            allCustomers => Ok(allCustomers),
+            allCustomers => Ok(new CustomerQueryResultHto(allCustomers)),
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
     [HttpPost]
@@ -31,8 +39,17 @@ public class CustomerQueriesController : Controller
         {
             return this.Problem(m_ProblemFactory.Exception("Name or Country must be given"));
         }
-        var newQueryUrl = Url.Link("CustomerQuery", new { name = value.Name,country=value.Country });
+        var newQueryUrl = Url.Link("CustomerQuery", new { name = value.Name, country = value.Country });
         return Created(newQueryUrl ?? string.Empty, null);
     }
 
+}
+
+public class CustomerQueryResultHto : HypermediaObject
+{
+    public CustomerQueryResultHto(IEnumerable<Customer> customers)
+    {
+        var entities = customers.Select(c => new RelatedEntity(DefaultHypermediaRelations.EmbeddedEntities.Item, new HypermediaObjectReference(new CustomerHto(c))));
+        Entities.AddRange(entities);
+    }
 }

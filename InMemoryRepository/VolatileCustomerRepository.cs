@@ -27,7 +27,10 @@ namespace CRM.InMemoryRepository
                     $"{apiResult.Location?.Country}",
                     apiResult.Picture?.Large!
                 );
-
+                if (Random.Shared.Next(2) == 1)
+                {
+                    customer.ExecuteMarkAsFavorite();
+                }
                 m_Customers.Add(customer.Id, customer);
             }
         }

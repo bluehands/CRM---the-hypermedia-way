@@ -1,6 +1,7 @@
 ﻿using CRM.Application;
 using CRM.Domain;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
 namespace CRM.Server.Controllers
@@ -18,7 +19,7 @@ namespace CRM.Server.Controllers
             m_CustomerMoveCommandHandler = customerMoveCommandHandler;
         }
 
-        [HttpPost]
+        [HttpPostHypermediaAction(typeof(Move))]
         public async Task<IActionResult> Move(Guid id, [FromBody] Address value)
         {
             var customerResult = await m_CustomerMoveCommandHandler.Move(new CustomerId(id), value);
@@ -32,5 +33,4 @@ namespace CRM.Server.Controllers
         }
 
     }
-
 }

@@ -1,6 +1,7 @@
 ﻿using CRM.Application;
 using CRM.Domain;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
 namespace CRM.Server.Controllers;
@@ -28,16 +29,16 @@ public class CustomersController : Controller
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
 
-    [HttpGet("{id}", Name = "GetCustomerById")]
+    [HttpGetHypermediaObject("{id}", typeof(CustomerHto), Name = "GetCustomerById")]
     public async Task<IActionResult> Get(Guid id)
     {
         var customerResult = await m_CustomerCommandHandler.GetCustomerById(id);
         return customerResult.Match<IActionResult>(
-            customer => Ok(customer),
+            customer => Ok(new CustomerHto(customer)),
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
 
-    [HttpPost]
+    [HttpPostHypermediaAction(typeof(RegisterCustomer))]
     public async Task<IActionResult> Post([FromBody] NewCustomerData value)
     {
         var customerResult = await m_CustomerCommandHandler.AddCustomer(value);

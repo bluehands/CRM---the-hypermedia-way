@@ -1,6 +1,7 @@
 ﻿using CRM.Application;
 using CRM.Domain;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
 namespace CRM.Server.Controllers;
@@ -25,20 +26,22 @@ public class FavoriteCustomersController : Controller
             allCustomers => Ok(allCustomers),
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
-    [HttpPost]
-    public async Task<IActionResult> MarkAsFavorite([FromBody] FavoriteCustomerData value)
+
+    [HttpPostHypermediaAction("{id}", typeof(MarkAsFavorite))]
+    public async Task<IActionResult> MarkAsFavorite(FavoriteCustomerData value)
     {
         var uri = new Uri(value.Url);
         var id = uri.Segments.LastOrDefault();
         var customerResult = await m_FavoriteCustomersCommandHandler.MarkAsFavorite(Guid.Parse(id ?? string.Empty));
         return customerResult.Match<IActionResult>(
-            customer => 
+            customer =>
             {
                 var newCustomerUrl = Url.Link("GetCustomerById", new { id = customer.Id.Value.ToString() });
                 return Created(newCustomerUrl ?? string.Empty, null);
             },
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> UnMarkAsFavorite(Guid id)
     {

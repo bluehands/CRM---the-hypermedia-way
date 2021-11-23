@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Domain", "Domain\CRM.Do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Server", "Server\CRM.Server.csproj", "{489E758E-5538-4983-AA5B-E80ED3D7F590}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.InMemoryRepository", "InMemoryRepository\CRM.InMemoryRepository.csproj", "{52E57136-7DD8-46F1-B431-3D3A183B0063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.InMemoryRepository", "InMemoryRepository\CRM.InMemoryRepository.csproj", "{52E57136-7DD8-46F1-B431-3D3A183B0063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
