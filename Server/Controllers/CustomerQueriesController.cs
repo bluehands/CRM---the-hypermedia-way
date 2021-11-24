@@ -32,7 +32,7 @@ public class CustomerQueriesController : Controller
             allCustomers => Ok(new CustomerQueryResultHto(allCustomers)),
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
-    [HttpPost]
+    [HttpPostHypermediaAction(typeof(CreateCustomersQuery))]
     public IActionResult Post([FromBody] QueryParameter value)
     {
         if (string.IsNullOrEmpty(value.Country) && string.IsNullOrEmpty(value.Name))

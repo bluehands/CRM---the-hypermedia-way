@@ -8,15 +8,15 @@ namespace CRM.Server.Controllers;
 
 public class CustomerHto : HypermediaObject
 {
-    
+
     [Key]
     [FormatterIgnoreHypermediaProperty]
     public Guid Id { get; }
     public string Name { get; }
-    public string Street { get;  }
-    public string ZipCode { get;  }
+    public string Street { get; }
+    public string ZipCode { get; }
     public string City { get; }
-    public string Country { get;  }
+    public string Country { get; }
     public bool IsFavorite { get; }
 
     public CustomerHto(Customer customer)
@@ -28,12 +28,17 @@ public class CustomerHto : HypermediaObject
         City = customer.City;
         Country = customer.Country;
         IsFavorite = customer.IsFavorite;
-        MarkAsFavorite=new MarkAsFavorite(() => !IsFavorite, () => { });
+        MarkAsFavorite = new MarkAsFavorite(() => !IsFavorite, () => { });
+        UnmarkAsFavorite = new UnmarkAsFavorite(() => IsFavorite, () => { });
         Move = new Move(() => true, () => { });
     }
 
     [HypermediaAction(Name = "MarkAsFavorite", Title = "Mark the customer as favorite")]
     public MarkAsFavorite MarkAsFavorite { get; set; }
+
+    [HypermediaAction(Name = "UnmarkAsFavorite", Title = "Unmark the customer as favorite")]
+    public UnmarkAsFavorite UnmarkAsFavorite { get; set; }
+
     [HypermediaAction(Name = "Move", Title = "Customer has moved. Set the new address")]
     public Move Move { get; set; }
 }
@@ -45,9 +50,15 @@ public class Move : HypermediaAction
     }
 }
 
-public class MarkAsFavorite:HypermediaAction
+public class MarkAsFavorite : HypermediaAction
 {
     public MarkAsFavorite(Func<bool> canExecute, Action command) : base(canExecute, command)
+    {
+    }
+}
+public class UnmarkAsFavorite : HypermediaAction
+{
+    public UnmarkAsFavorite(Func<bool> canExecute, Action command) : base(canExecute, command)
     {
     }
 }

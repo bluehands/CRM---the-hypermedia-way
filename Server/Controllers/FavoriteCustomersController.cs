@@ -42,8 +42,8 @@ public class FavoriteCustomersController : Controller
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> UnMarkAsFavorite(Guid id)
+    [HttpDeleteHypermediaAction("{id}", typeof(UnmarkAsFavorite))]
+    public async Task<IActionResult> UnmarkAsFavorite(Guid id)
     {
         var customerResult = await m_FavoriteCustomersCommandHandler.UnMarkAsFavorite(id);
         return customerResult.Match<IActionResult>(
