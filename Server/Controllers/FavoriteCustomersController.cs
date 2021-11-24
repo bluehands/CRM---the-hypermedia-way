@@ -1,6 +1,7 @@
 ﻿using CRM.Application;
 using CRM.Domain;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.HypermediaExtensions.Hypermedia.Actions;
 using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
@@ -52,3 +53,4 @@ public class FavoriteCustomersController : Controller
     }
 }
 
+public record FavoriteCustomerData(string Url) : IHypermediaActionParameter;

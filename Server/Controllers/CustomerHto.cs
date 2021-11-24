@@ -28,7 +28,7 @@ public class CustomerHto : HypermediaObject
         City = customer.City;
         Country = customer.Country;
         IsFavorite = customer.IsFavorite;
-        MarkAsFavorite = new MarkAsFavorite(() => !IsFavorite, () => { });
+        MarkAsFavorite = new MarkAsFavorite(() => !IsFavorite, _ => { });
         UnmarkAsFavorite = new UnmarkAsFavorite(() => IsFavorite, () => { });
         Move = new Move(() => true, () => { });
     }
@@ -50,9 +50,9 @@ public class Move : HypermediaAction
     }
 }
 
-public class MarkAsFavorite : HypermediaAction
+public class MarkAsFavorite : HypermediaAction<FavoriteCustomerData>
 {
-    public MarkAsFavorite(Func<bool> canExecute, Action command) : base(canExecute, command)
+    public MarkAsFavorite(Func<bool> canExecute, Action<FavoriteCustomerData> command) : base(canExecute, command)
     {
     }
 }

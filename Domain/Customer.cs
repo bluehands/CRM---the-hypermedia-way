@@ -23,18 +23,7 @@ namespace CRM.Domain
             Country = country;
             PictureUrl = pictureUrl;
             IsFavorite = false;
-        }
-
-        public Customer(CustomerId id, NewCustomerData newCustomerData)
-        {
-            Id = id;
-            Name = newCustomerData.Name;
-            Street = newCustomerData.Street;
-            ZipCode = newCustomerData.ZipCode;
-            City = newCustomerData.City;
-            Country = newCustomerData.Country;
-            PictureUrl = String.Empty;
-        }
+        } 
 
         public Result<Customer> ExecuteMarkAsFavorite()
         {

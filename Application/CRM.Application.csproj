@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FunicularSwitch" Version="3.0.2" />
+    <PackageReference Include="WebApiHypermediaExtensionsCore" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
