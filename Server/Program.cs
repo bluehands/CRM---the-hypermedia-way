@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json;
 using CRM.Application;
 using CRM.InMemoryRepository;
@@ -19,16 +20,22 @@ builder.Services.AddLogging(o => o.AddConsole());
 builder.Services.AddMvc(
     options =>
     {
-        //options.OutputFormatters.Clear();
         options.OutputFormatters.Add(new CustomerImageFormatter());
-        //options.OutputFormatters.Add(new SystemTextJsonOutputFormatter(new() { IgnoreNullValues = true }));
     }).
 AddHypermediaExtensions(builder.Services,
     new HypermediaExtensionsOptions
     {
         ReturnDefaultRouteForUnknownHto = true // useful during development
-    });
-
+    },
+    Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(NewCustomerData))!
+    );
+builder.Services.AddCors(o =>
+    o.AddPolicy("AllowAll", b =>
+        {
+            b.AllowAnyOrigin();
+            b.AllowAnyHeader();
+            b.AllowAnyMethod();
+        }));
 
 var app = builder.Build();
 
@@ -37,8 +44,10 @@ var app = builder.Build();
 app.UseHttpLogging();
 //app.UseHttpsRedirection();
 
+app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

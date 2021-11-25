@@ -25,9 +25,9 @@ public class CustomerQueriesController : Controller
 
 
     [HttpGetHypermediaObject(typeof(CustomerQueryResultHto), Name = "CustomerQuery")]
-    public async Task<IActionResult> Query(string? name, string? country)
+    public async Task<IActionResult> Query(string? name, string? country, bool? isFavorite)
     {
-        var queryResult = await m_CustomerCommandHandler.QueryCustomers(new QueryParameter(name, country));
+        var queryResult = await m_CustomerCommandHandler.QueryCustomers(new QueryParameter(name, country, isFavorite));
         return queryResult.Match<IActionResult>(
             allCustomers => Ok(new CustomerQueryResultHto(allCustomers)),
             e => this.Problem(m_ProblemFactory.Exception(e)));

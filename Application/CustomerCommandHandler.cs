@@ -2,10 +2,10 @@
 using CRM.Domain;
 using FunicularSwitch;
 using WebApi.HypermediaExtensions.Hypermedia.Actions;
+using WebApi.HypermediaExtensions.Query;
 
 namespace CRM.Application
 {
-
     public class CustomerCommandHandler
     {
         private readonly ICustomerRepository m_CustomerRepository;
@@ -33,7 +33,10 @@ namespace CRM.Application
                 {
                     queryResult = queryResult.Where(c => c.Country.Contains(parameters.Country, StringComparison.InvariantCultureIgnoreCase));
                 }
-
+                if (parameters.IsFavorite != null)
+                {
+                    queryResult = queryResult.Where(c => c.IsFavorite == parameters.IsFavorite!);
+                }
                 return Result.Ok<IEnumerable<Customer>>(queryResult);
             });
         }
@@ -51,5 +54,5 @@ namespace CRM.Application
         }
     }
     public record NewCustomerData(string Name, string Street, string ZipCode, string City, string Country) : IHypermediaActionParameter;
-    public record QueryParameter(string? Name, string? Country) : IHypermediaActionParameter;
+    public record QueryParameter(string? Name, string? Country, bool? IsFavorite) : IHypermediaQuery, IHypermediaActionParameter;
 }

@@ -11,7 +11,8 @@ public class CustomersRootHto : HypermediaObject
 {
     public CustomersRootHto()
     {
-        Links.Add("allCustomers", new HypermediaObjectKeyReference(typeof(CustomerQueryResultHto)));
+        Links.Add("allCustomers", new HypermediaObjectQueryReference(typeof(CustomerQueryResultHto), new QueryParameter(string.Empty, string.Empty, null)));
+        Links.Add("favorites", new HypermediaObjectQueryReference(typeof(CustomerQueryResultHto), new QueryParameter(string.Empty, string.Empty, true)));
         RegisterCustomer = new RegisterCustomer(() => true, _ => { });
         CreateCustomersQuery = new CreateCustomersQuery(() => true, _ => { });
     }
