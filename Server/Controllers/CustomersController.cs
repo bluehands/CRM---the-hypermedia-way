@@ -40,13 +40,7 @@ public class CustomersController : Controller
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] NewCustomerData value)
     {
-        var customerResult = await m_CustomerCommandHandler.AddCustomer(value);
-        return customerResult.Match<IActionResult>(customer =>
-            {
-                var newCustomerUrl = Url.Link("GetCustomerById", new { id = customer.Id.Value.ToString() });
-                return Created(newCustomerUrl ?? string.Empty, null);
-            },
-            e => this.Problem(m_ProblemFactory.Exception(e)));
+        throw new NotImplementedException();
     }
 
 }

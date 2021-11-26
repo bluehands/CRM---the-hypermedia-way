@@ -18,19 +18,6 @@ namespace CRM.Server.Controllers
             m_CustomerMoveCommandHandler = customerMoveCommandHandler;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Move(Guid id, [FromBody] Address value)
-        {
-            var customerResult = await m_CustomerMoveCommandHandler.Move(new CustomerId(id), value);
-            return customerResult.Match<IActionResult>(
-                customer =>
-                {
-                    var newCustomerUrl = Url.Link("GetCustomerById", new { id = customer.Id.Value.ToString() });
-                    return Created(newCustomerUrl ?? string.Empty, null);
-                },
-                e => this.Problem(m_ProblemFactory.Exception(e)));
-        }
-
     }
 
 }
