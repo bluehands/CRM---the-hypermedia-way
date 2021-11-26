@@ -20,7 +20,7 @@ namespace CRM.Server.Controllers
         }
 
         [HttpPostHypermediaAction(typeof(Move))]
-        public async Task<IActionResult> Move(Guid id, [FromBody] Address value)
+        public async Task<IActionResult> Move(Guid id, [FromBody] Application.Address value)
         {
             var customerResult = await m_CustomerMoveCommandHandler.Move(new CustomerId(id), value);
             return customerResult.Match<IActionResult>(

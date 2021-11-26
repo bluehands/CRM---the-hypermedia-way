@@ -6,6 +6,7 @@ using WebApi.HypermediaExtensions.WebApi.RouteResolver;
 
 namespace CRM.Server.Controllers;
 
+[HypermediaObject(Title = "Customer", Classes = new[] { "Customer" })]
 public class CustomerHto : HypermediaObject
 {
 
@@ -30,7 +31,7 @@ public class CustomerHto : HypermediaObject
         IsFavorite = customer.IsFavorite;
         MarkAsFavorite = new MarkAsFavorite(() => !IsFavorite, _ => { });
         UnmarkAsFavorite = new UnmarkAsFavorite(() => IsFavorite, () => { });
-        Move = new Move(() => true, () => { });
+        Move = new Move(() => true, _ => { });
     }
 
     [HypermediaAction(Name = "MarkAsFavorite", Title = "Mark the customer as favorite")]
@@ -43,9 +44,9 @@ public class CustomerHto : HypermediaObject
     public Move Move { get; set; }
 }
 
-public class Move : HypermediaAction
+public class Move : HypermediaAction<CRM.Application.Address>
 {
-    public Move(Func<bool> canExecute, Action command) : base(canExecute, command)
+    public Move(Func<bool> canExecute, Action<CRM.Application.Address> command) : base(canExecute, command)
     {
     }
 }

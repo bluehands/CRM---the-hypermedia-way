@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Server", "Server\CRM.Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.InMemoryRepository", "InMemoryRepository\CRM.InMemoryRepository.csproj", "{52E57136-7DD8-46F1-B431-3D3A183B0063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.CLI", "CRM.CLI\CRM.CLI.csproj", "{B7825DFE-20E0-460D-87B3-C1C4547059FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{52E57136-7DD8-46F1-B431-3D3A183B0063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52E57136-7DD8-46F1-B431-3D3A183B0063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52E57136-7DD8-46F1-B431-3D3A183B0063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7825DFE-20E0-460D-87B3-C1C4547059FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7825DFE-20E0-460D-87B3-C1C4547059FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7825DFE-20E0-460D-87B3-C1C4547059FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7825DFE-20E0-460D-87B3-C1C4547059FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

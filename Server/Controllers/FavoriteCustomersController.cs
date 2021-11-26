@@ -1,5 +1,4 @@
 ﻿using CRM.Application;
-using CRM.Domain;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.HypermediaExtensions.Hypermedia.Actions;
 using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;

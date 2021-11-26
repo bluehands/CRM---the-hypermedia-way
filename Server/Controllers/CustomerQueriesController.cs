@@ -1,10 +1,5 @@
-﻿using Bluehands.Hypermedia.Relations;
-using CRM.Application;
-using CRM.Domain;
+﻿using CRM.Application;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.HypermediaExtensions.Hypermedia;
-using WebApi.HypermediaExtensions.Hypermedia.Actions;
-using WebApi.HypermediaExtensions.Hypermedia.Links;
 using WebApi.HypermediaExtensions.WebApi.AttributedRoutes;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
@@ -43,13 +38,4 @@ public class CustomerQueriesController : Controller
         return Created(newQueryUrl ?? string.Empty, null);
     }
 
-}
-
-public class CustomerQueryResultHto : HypermediaObject
-{
-    public CustomerQueryResultHto(IEnumerable<Customer> customers)
-    {
-        var entities = customers.Select(c => new RelatedEntity(DefaultHypermediaRelations.EmbeddedEntities.Item, new HypermediaObjectReference(new CustomerHto(c))));
-        Entities.AddRange(entities);
-    }
 }

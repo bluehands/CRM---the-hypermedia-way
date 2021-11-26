@@ -1,9 +1,7 @@
 using System.Reflection;
-using System.Text.Json;
 using CRM.Application;
 using CRM.InMemoryRepository;
 using CRM.Server;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using WebApi.HypermediaExtensions.WebApi.ExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);

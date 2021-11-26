@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using CRM.Domain;
+﻿using CRM.Domain;
 using FunicularSwitch;
 using WebApi.HypermediaExtensions.Hypermedia.Actions;
 using WebApi.HypermediaExtensions.Query;

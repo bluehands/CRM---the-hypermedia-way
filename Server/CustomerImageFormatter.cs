@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using CRM.Domain;
+﻿using CRM.Domain;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace CRM.Server
@@ -12,7 +10,7 @@ namespace CRM.Server
             SupportedMediaTypes.Add("image/png");
             SupportedMediaTypes.Add("image/jpeg");
         }
-        protected override bool CanWriteType(Type type)
+        protected override bool CanWriteType(Type? type)
         {
             if (typeof(Customer).IsAssignableFrom(type))
             {
