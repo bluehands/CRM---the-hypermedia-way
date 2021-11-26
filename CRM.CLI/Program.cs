@@ -16,34 +16,8 @@ public class Program
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         var entryPointUrl = new Uri("https://localhost:5001/api/entrypoint");
         var sirenClient = CreateSirenClient(entryPointUrl);
-        var entryPointApi = await sirenClient.EnterAsync();
-        var customersRootApi = await entryPointApi!.Customers!.ResolveAsync();
-        var favoritesApi = await customersRootApi!.Favorites!.ResolveAsync();
-        var favoriteCustomers = favoritesApi.Customers;
-        foreach (var customer in favoriteCustomers!)
-        {
-            Console.WriteLine($"Hello {customer.Name} from {customer.Country}");
-        }
 
-        var firstFavorite = favoriteCustomers.First();
-        if (firstFavorite.UnmarkAsFavorite!.CanExecute)
-        {
-            var unmarkAsFavoriteResult = await firstFavorite.UnmarkAsFavorite.ExecuteAsync();
-            if (unmarkAsFavoriteResult.Success)
-            {
-                var hopefullyNotFavoriteCustomer = await firstFavorite.Self!.ResolveAsync();
-                Console.WriteLine($"Customer {hopefullyNotFavoriteCustomer.Name} is favorite?: {hopefullyNotFavoriteCustomer.IsFavorite}");
-            }
-        }
-        var customersApi = await customersRootApi.AllCustomers!.ResolveAsync();
-        var firstCustomer = customersApi.Customers!.First();
-        var moveResult = await firstCustomer.Move!.ExecuteAsync(new Address("Waldstraße 63", "76133", "Karlsruhe", "Germany"));
-        if (moveResult.Success)
-        {
-            var movedCustomer = await moveResult.ResultLocation.ResolveAsync();
-            Console.WriteLine($"{movedCustomer.Name} has moved to {movedCustomer.Country}");
-        }
-
+        throw new NotImplementedException();
         Console.ReadLine();
 
     }
