@@ -27,15 +27,4 @@ public class CustomerQueriesController : Controller
             allCustomers => Ok(new CustomerQueryResultHto(allCustomers)),
             e => this.Problem(m_ProblemFactory.Exception(e)));
     }
-    [HttpPostHypermediaAction(typeof(CreateCustomersQuery))]
-    public IActionResult Post([FromBody] QueryParameter value)
-    {
-        if (string.IsNullOrEmpty(value.Country) && string.IsNullOrEmpty(value.Name))
-        {
-            return this.Problem(m_ProblemFactory.Exception("Name or Country must be given"));
-        }
-        var newQueryUrl = Url.Link("CustomerQuery", new { name = value.Name, country = value.Country });
-        return Created(newQueryUrl ?? string.Empty, null);
-    }
-
 }

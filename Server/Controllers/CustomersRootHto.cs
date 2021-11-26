@@ -12,23 +12,11 @@ public class CustomersRootHto : HypermediaObject
     public CustomersRootHto()
     {
         Links.Add("allCustomers", new HypermediaObjectQueryReference(typeof(CustomerQueryResultHto), new QueryParameter(string.Empty, string.Empty, null)));
-        Links.Add("favorites", new HypermediaObjectQueryReference(typeof(CustomerQueryResultHto), new QueryParameter(string.Empty, string.Empty, true)));
         RegisterCustomer = new RegisterCustomer(() => true, _ => { });
-        CreateCustomersQuery = new CreateCustomersQuery(() => true, _ => { });
     }
 
     [HypermediaAction(Name = "RegisterCustomer", Title = "Register a customer to our CRM.")]
     public RegisterCustomer RegisterCustomer { get; set; }
-
-    [HypermediaAction(Name = "CreateCustomersQuery", Title = "Create a query to select customers")]
-    public CreateCustomersQuery CreateCustomersQuery { get; set; }
-}
-
-public class CreateCustomersQuery : HypermediaAction<QueryParameter>
-{
-    public CreateCustomersQuery(Func<bool> canExecute, Action<QueryParameter> command) : base(canExecute, command)
-    {
-    }
 }
 
 public class RegisterCustomer : HypermediaAction<NewCustomerData>

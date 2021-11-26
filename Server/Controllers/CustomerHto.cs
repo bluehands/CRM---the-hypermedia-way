@@ -29,17 +29,10 @@ public class CustomerHto : HypermediaObject
         City = customer.City;
         Country = customer.Country;
         IsFavorite = customer.IsFavorite;
-        MarkAsFavorite = new MarkAsFavorite(() => !IsFavorite, _ => { });
-        UnmarkAsFavorite = new UnmarkAsFavorite(() => IsFavorite, () => { });
         Move = new Move(() => true, _ => { });
     }
 
-    [HypermediaAction(Name = "MarkAsFavorite", Title = "Mark the customer as favorite")]
-    public MarkAsFavorite MarkAsFavorite { get; set; }
-
-    [HypermediaAction(Name = "UnmarkAsFavorite", Title = "Unmark the customer as favorite")]
-    public UnmarkAsFavorite UnmarkAsFavorite { get; set; }
-
+   
     [HypermediaAction(Name = "Move", Title = "Customer has moved. Set the new address")]
     public Move Move { get; set; }
 }
@@ -47,19 +40,6 @@ public class CustomerHto : HypermediaObject
 public class Move : HypermediaAction<CRM.Application.Address>
 {
     public Move(Func<bool> canExecute, Action<CRM.Application.Address> command) : base(canExecute, command)
-    {
-    }
-}
-
-public class MarkAsFavorite : HypermediaAction<FavoriteCustomerData>
-{
-    public MarkAsFavorite(Func<bool> canExecute, Action<FavoriteCustomerData> command) : base(canExecute, command)
-    {
-    }
-}
-public class UnmarkAsFavorite : HypermediaAction
-{
-    public UnmarkAsFavorite(Func<bool> canExecute, Action command) : base(canExecute, command)
     {
     }
 }
